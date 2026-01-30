@@ -221,6 +221,80 @@ footer{
   font-size: clamp(14px, 2.5vw, 18px);
   color: rgba(255,255,255,0.85);
 }
+
+/*Popup*/
+.popup.hidden {
+  display: none;
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+.popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+}
+
+.popup-box {
+  position: relative;
+  max-width: 820px;
+  width: 92%;
+  max-height: 90vh;
+  margin: 5vh auto;
+  background: #0b1220;
+  border-radius: 18px;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.popup-cover {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.popup-content {
+  padding: 18px;
+}
+
+.popup-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(100px,1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.popup-gallery img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.popup-download {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#6fbaff,#4f7dff);
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
 </style>
 </head>
 
@@ -249,6 +323,26 @@ footer{
 
 <div class="grid" id="grid"></div>
 
+  <div id="popup" class="popup hidden">
+  <div class="popup-overlay"></div>
+
+  <div class="popup-box">
+    <button class="popup-close">✕</button>
+
+    <img id="popup-cover" class="popup-cover" src="" alt="">
+
+    <div class="popup-content">
+      <h2 id="popup-title"></h2>
+      <p id="popup-desc"></p>
+
+      <div id="popup-gallery" class="popup-gallery"></div>
+
+      <a id="popup-download" class="popup-download" href="#" target="_blank">
+        Download
+      </a>
+    </div>
+  </div>
+  </div>
 <footer>
   © 2025 K Games Legends
 </footer>
@@ -258,7 +352,8 @@ let packs=[];
 const grid=document.getElementById("grid");
 const search=document.getElementById("search");
 const filter=document.getElementById("filter");
-
+const popup = document.getElementById("popup");
+  
 /* ===== Fetch ===== */
 fetch("wallpapers.json")
 .then(r=>r.json())
@@ -271,6 +366,7 @@ fetch("wallpapers.json")
 /* ===== Render ===== */
 function render(list){
   grid.innerHTML="";
+  card.onclick = () => openPopup(b);
   list.forEach(p=>{
     const c=document.createElement("div");
     c.className="card";
@@ -284,6 +380,34 @@ function render(list){
     grid.appendChild(c);
   });
 }
+
+/*Popup open script*/
+function openPopup(data) {
+  document.getElementById("popup-cover").src = data.image;
+  document.getElementById("popup-title").textContent = data.title;
+  document.getElementById("popup-desc").textContent = data.desc || "";
+  document.getElementById("popup-download").href = data.download || "#";
+
+  const gallery = document.getElementById("popup-gallery");
+  gallery.innerHTML = "";
+
+  if (Array.isArray(data.gallery)) {
+    data.gallery.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      gallery.appendChild(img);
+    });
+  }
+
+  popup.classList.remove("hidden");
+}
+
+function closePopup() {
+  popup.classList.add("hidden");
+}
+
+popup.querySelector(".popup-close").onclick = closePopup;
+popup.querySelector(".popup-overlay").onclick = closePopup;
 
 /* ===== Filter ===== */
 function applyFilter(){
