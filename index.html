@@ -366,10 +366,11 @@ fetch("wallpapers.json")
 /* ===== Render ===== */
 function render(list){
   grid.innerHTML="";
-  card.onclick = () => openPopup(b);
+
   list.forEach(p=>{
     const c=document.createElement("div");
     c.className="card";
+
     c.innerHTML=`
       <img src="${p.image}" alt="${p.title}">
       <div class="card-body">
@@ -377,10 +378,12 @@ function render(list){
         <h3>${p.title}</h3>
       </div>
     `;
+    
+    c.onclick = () => openPopup(p);
+
     grid.appendChild(c);
   });
 }
-
 /*Popup open script*/
 function openPopup(data) {
   document.getElementById("popup-cover").src = data.image;
