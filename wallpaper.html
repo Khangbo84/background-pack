@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Background Packs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#0b1220;
+  --bg2:#0f1b35;
+  --card:#162447;
+  --text:#ffffff;
+  --muted:#b8c4ff;
+  --radius:16px;
+}
+
+/* ===== Reset ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family: "Sigmar One",sans-serif}
+body{
+  color:var(--text);
+  background:linear-gradient(120deg,var(--bg1),var(--bg2));
+  background-size:200% 200%;
+  animation:bgMove 20s ease infinite;
+  min-height:100vh;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* ===== Header ===== */
+header{
+  padding:32px 20px;
+  text-align:center;
+}
+header h1{font-size:28px}
+header p{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* ===== Controls ===== */
+.controls input,
+.controls select {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 10px 14px;
+  border-radius: 12px;
+  outline: none;
+  backdrop-filter: blur(6px);
+  transition: border .2s ease, background .2s ease;
+}
+
+.controls input::placeholder {
+  color: rgba(255,255,255,0.55);
+}
+
+.controls input:focus,
+.controls select:focus {
+  border-color: #7aa2ff;
+  background: rgba(255,255,255,0.12);
+}
+
+.filter-bar.horizontal {
+  max-width: 1000px;
+  margin: 32px auto;
+  display: flex;
+  gap: 16px;
+}
+
+.filter-bar.horizontal input {
+  flex: 1;
+}
+
+.filter-bar.horizontal select {
+  width: 200px;
+}
+
+@media (max-width: 768px) {
+  .filter-bar.horizontal {
+    flex-direction: column;
+  }
+
+  .filter-bar.horizontal select {
+    width: 100%;
+  }
+}
+
+/* ===== Grid ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:22px;
+  padding:0 20px 50px;
+}
+
+/* ===== Card ===== */
+.card{
+  position:relative;
+  background:var(--card);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Shine layer */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:-150%;
+  background:linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,.18) 50%,
+    transparent 60%
+  );
+  transform:translateX(-100%);
+}
+
+/* Active shine */
+.card.shine::after{
+  animation:shine 10s linear infinite;
+}
+
+@keyframes shine{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:14px;
+}
+.card-body h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+.card-body span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* ===== Types ===== */
+.type{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+  margin-bottom:8px;
+}
+.anime{background:#ff7ad9}
+.game{background:#7aa2ff}
+.chill{background:#6fffd0}
+
+/* ===== Footer ===== */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:13px;
+  color:var(--muted);
+}
+.head {
+  position: relative;
+  width: 100%;
+  height: min(70vh, 520px);
+  overflow: hidden;
+}
+
+.head-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+@media (max-width: 768px) {
+  .head {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+}
+
+/* Lớp phủ + chữ */
+.head-overlay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.25),
+      rgba(0,0,0,0.45)
+    );
+}
+
+.head-overlay h1 {
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.head-overlay p {
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: rgba(255,255,255,0.85);
+}
+</style>
+</head>
+
+<body>
+
+<header class="head">
+  <img src="header.jpg" alt="Header background" class="head-bg">
+
+  <div class="head-overlay">
+    <h1>BG PACK</h1>
+    <p>For Betmc ui & Horizon ui</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="filter-bar horizontal">
+    <input id="search" placeholder="Search by name or type..." />
+    <select id="typeFilter">
+      <option value="all">All types</option>
+      <option value="anime">Anime</option>
+      <option value="game">Game</option>
+      <option value="chill">Chill</option>
+    </select>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  © 2025 K Games Legends
+</footer>
+
+<script>
+let packs=[];
+const grid=document.getElementById("grid");
+const search=document.getElementById("search");
+const filter=document.getElementById("filter");
+
+/* ===== Fetch ===== */
+fetch("wallpapers.json")
+.then(r=>r.json())
+.then(d=>{
+  packs=d;
+  render(packs);
+  observeCards();
+});
+
+/* ===== Render ===== */
+function render(list){
+  grid.innerHTML="";
+  list.forEach(p=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=`
+      <img src="${p.image}" alt="${p.title}">
+      <div class="card-body">
+        <span class="type ${p.type}">${p.type}</span>
+        <h3>${p.title}</h3>
+      </div>
+    `;
+    grid.appendChild(c);
+  });
+}
+
+/* ===== Filter ===== */
+function applyFilter(){
+  const q=search.value.toLowerCase();
+  const t=filter.value;
+  render(
+    packs.filter(p=>{
+      const text =
+        p.title.toLowerCase().includes(q) ||
+        p.type.toLowerCase().includes(q);
+      const typeOk = t==="all" || p.type===t;
+      return text && typeOk;
+    })
+  );
+  observeCards();
+}
+search.addEventListener("input",applyFilter);
+filter.addEventListener("change",applyFilter);
+
+/* ===== Viewport shine control ===== */
+function observeCards(){
+  const cards=document.querySelectorAll(".card");
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("shine");
+      }else{
+        e.target.classList.remove("shine");
+      }
+    });
+  },{threshold:0.3});
+
+  cards.forEach(c=>io.observe(c));
+}
+</script>
+
+</body>
+</html>
