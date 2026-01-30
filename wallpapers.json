@@ -2,11 +2,15 @@
   {
     "title": "Kei Live wallpaper Background",
     "type": "anime",
-    "image": "kei.png"
+    "image": "kei.png",
+    "desc": "Kei l2d Blue Achieve",
+    "download": "https://www.mediafire.com/file/phx9selxtgtbfcm/Kei_live_wallpaper_bg.mcpack/file"
   },
   {
     "title": "Coming Soon",
     "type": "anime",
-    "image": "coming_soon.jpg"
+    "image": "coming_soon.jpg",
+    "desc": "more live wallpaper background coming soon",
+    "download": ""
   }
 ]
